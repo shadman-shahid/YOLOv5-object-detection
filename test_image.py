@@ -16,7 +16,6 @@ t2 = time.time()
 
 print('Processing Time : {}'.format(round(t2-t1,3)))
 
-
 cv2.imshow('Frame',img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

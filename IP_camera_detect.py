@@ -7,10 +7,8 @@ from utils.videocapture import CustomVideoCapture
 model_path = './model_data/yolov5l.pt'
 detector = DetectYolov5(model_path)
 
-
 url = 'rtsp://admin:AiBi@8899@192.168.101.80:554'
 cap = CustomVideoCapture(url)
-
 
 while True:
     t1 = time.time()
@@ -20,7 +18,7 @@ while True:
     t2 = time.time()
     print('Processing Time : {} s'.format(round((t2-t1),3)))
 
-    cv2.imshow('Face Recognition MIS',image)
+    cv2.imshow('IP Camera Object Detection',image)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break  
 

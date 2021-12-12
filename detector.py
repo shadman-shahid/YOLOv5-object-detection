@@ -15,12 +15,14 @@ class DetectYolov5():
         if torch.cuda.is_available():
             print('Running on CUDA Device')
             self.device = torch.device('cuda:0')
+            print('Device Name : ',torch.cuda.get_device_name(0))
+            
         else:
             print('Running on CPU')
             self.device =torch.device('cpu')
         self.model_path = model_path
         self.model = attempt_load(self.model_path, map_location = self.device) 
-        self.names = self.model.module.names if hasattr(self.model, 'module') else self.model.names  
+        self.names = self.model.module.names if hasattr(self.model, 'module') else self.model.names 
 
 
     def detect_image(self, image, conf_threshold = 0.25, iou_threshold = 0.45, resize_factor = None):
