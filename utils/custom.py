@@ -174,15 +174,12 @@ def LoadImages(image):
     device='cpu'
     im0s = image
     img = letterbox(image, 640, 32)[0]
-    print(img.shape)
     img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB
     img = np.ascontiguousarray(img)
     img = torch.from_numpy(img).to(device)
     img = img.float()  
     img = img / 255.0  
     if len(img.shape) == 3:
-        print('reshaped')
         img = img[None]
-        print(img.shape)
 
     return img
