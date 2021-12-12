@@ -23,29 +23,34 @@ class DetectYolov5():
         self.names = self.model.module.names if hasattr(self.model, 'module') else self.model.names  
 
 
-    def detect_image(self,image):
+    def detect_image(self, image, conf_threshold = 0.25, iou_threshold = 0.45, resize_factor = None):
         img = LoadImages(image) 
+        if resize_factor != None:
+            image = cv2.resize(image, (0,0), fx=resize_factor, fy=resize_factor)
         pred = self.model(img)[0]
-        conf_thres = 0.25 
-        iou_thres = 0.45  
         max_det=1000
         classes=None
         agnostic_nms=False
-        pred = non_max_suppression(pred, conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
+        pred = non_max_suppression(pred, conf_threshold, iou_threshold, classes, agnostic_nms, max_det=max_det)
         source=" "
         path=source
         det=pred[0]
         det[:, :4] = scale_coords(img.shape[2:], det[:, :4], image.shape).round()
+        names=[]
+        bboxes=[]
 
-        im2=image
+        im2=image.copy()
         for i in range (len(det)):
             left, top, right, bottom=np.array(det[i,0:4])
+            bbox=[left, top, right, bottom]
+            bboxes.append(bbox)
             index=int(np.array(det[i,5]))
             score=round(float(np.array(det[i,4])),2)
-            print(self.names[index],score)
+            names.append(self.names[index])
             cv2.rectangle(im2, (int(left), int(top)), (int(right), int(bottom)), (0, 255, 0), 2)
-            cv2.rectangle(im2, (int(left), int(top) + 35), (int(right), int(top)), (0, 255, 0), cv2.FILLED)
-            cv2.putText(im2, self.names[index], (int(left) + 20, int(top) + 25), cv2.FONT_HERSHEY_DUPLEX, 1.0, (0, 0, 0), 1)
+            #cv2.rectangle(im2, (int(left), int(top) + 15), (int(right), int(top)), (0, 255, 255), cv2.FILLED)
+            cv2.rectangle(im2, (int(left), int(top) + 15), (int(left)+len(self.names[index])*13, int(top)), (0, 255, 255), cv2.FILLED)
+            cv2.putText(im2, self.names[index], (int(left) + 2, int(top) + 12), cv2.FONT_HERSHEY_DUPLEX, 0.7, (0, 0, 0), thickness=1, lineType=2)
             
-        return image
+        return im2,bboxes,names
 
