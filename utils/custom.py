@@ -170,8 +170,8 @@ def xywh2xyxy(x):
     y[:, 3] = x[:, 1] + x[:, 3] / 2  # bottom right y
     return y
 
-def LoadImages(image):
-    device='cpu'
+def LoadImages(image, device):
+    #device='cpu'
     im0s = image
     img = letterbox(image, 640, 32)[0]
     img = img.transpose((2, 0, 1))[::-1]  # HWC to CHW, BGR to RGB

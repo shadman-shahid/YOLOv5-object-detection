@@ -15,7 +15,7 @@ cap = CustomVideoCapture(url)
 while True:
     t1 = time.time()
     frame = cap.read()
-    image, bboxes, names = detector.detect_image(frame, conf_threshold = 0.65, resize_factor = 0.4)
+    image, bboxes, names = detector.detect_image(frame, conf_threshold = 0.6, resize_factor = 0.4)
     #image = cv2.resize(img,(640,640))
     t2 = time.time()
     print('Processing Time : {} s'.format(round((t2-t1),3)))
