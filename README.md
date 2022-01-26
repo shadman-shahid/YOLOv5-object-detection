@@ -8,6 +8,6 @@ Download model from https://github.com/ultralytics/yolov5/releases/tag/v3.0 and 
 
 run `test_image.py`
 
-## Detect From IP camera
+## Detect From webcam/IP camera
 
-run `webcam_detect`
+run `webcam_detect.py`
