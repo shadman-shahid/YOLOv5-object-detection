@@ -10,4 +10,4 @@ run `test_image.py`
 
 ## Detect From IP camera
 
-run `IP_camera_detect`
+run `webcam_detect`
