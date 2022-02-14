@@ -1,5 +1,6 @@
 __pycache__
 .idea
+env
 model_data/
 IP_camera_detect.py
 0.jpg
