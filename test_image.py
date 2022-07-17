@@ -5,7 +5,7 @@ import time
 source = 'random.jpeg'
 image = cv2.imread(source)
 
-model_path = './model_data/yolov5m.pt'
+model_path = './models/yolov5m.pt'
 # model_path = './model_data/crowdhuman_yolov5m.pt'
 
 detector = DetectYolov5(model_path)
